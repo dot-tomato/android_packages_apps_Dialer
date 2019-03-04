@@ -125,6 +125,19 @@ public class ProximitySensor
       orientation = AccelerometerListener.ORIENTATION_UNKNOWN;
       accelerometerListener.enable(isPhoneOffhook);
 
+<<<<<<< HEAD
+=======
+      updateProxSpeaker();
+      updateProximitySensorMode();
+    }
+    if (hasOngoingCall && InCallState.OUTGOING == oldState) {
+      setProxSpeaker(isProxSensorFar);
+      updateProximitySensorMode();
+    }
+     if (hasIncomingCall) {
+      updateProxRing();
+      answerProx(isProxSensorNear);
+>>>>>>> ebe9c6f... Fix incorrect proximity sensor behaviour
       updateProximitySensorMode();
     }
   }
@@ -248,7 +261,7 @@ public class ProximitySensor
         uiShowing,
         CallAudioState.audioRouteToString(audioRoute));
 
-    if (isPhoneOffhook && !screenOnImmediately) {
+    if ((isPhoneOffhook || hasIncomingCall) && !screenOnImmediately) {
       LogUtil.v("ProximitySensor.updateProximitySensorMode", "turning on proximity sensor");
       // Phone is in use!  Arrange for the screen to turn off
       // automatically when the sensor detects a close object.
